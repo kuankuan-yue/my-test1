@@ -156,9 +156,19 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         ofstream foutC(VINS_RESULT_PATH, ios::app);
         foutC.setf(ios::fixed, ios::floatfield);
         foutC.precision(0);
-        foutC << header.stamp.toSec() * 1e9 << ",";
+        // foutC << header.stamp.toSec()  * 1e9 << " ";
+        foutC << header.stamp.toSec() << " ";
+
         foutC.precision(5);
-        foutC << estimator.Ps[WINDOW_SIZE].x() << ","
+        // 为使用evo工具,所以更改了输出
+        foutC << estimator.Ps[WINDOW_SIZE].x() << " "
+              << estimator.Ps[WINDOW_SIZE].y() << " "
+              << estimator.Ps[WINDOW_SIZE].z() << " "
+              << tmp_Q.w() << " "
+              << tmp_Q.x() << " "
+              << tmp_Q.y() << " "
+              << tmp_Q.z() << endl;
+/*         foutC << estimator.Ps[WINDOW_SIZE].x() << ","
               << estimator.Ps[WINDOW_SIZE].y() << ","
               << estimator.Ps[WINDOW_SIZE].z() << ","
               << tmp_Q.w() << ","
@@ -167,7 +177,7 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
               << tmp_Q.z() << ","
               << estimator.Vs[WINDOW_SIZE].x() << ","
               << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+              << estimator.Vs[WINDOW_SIZE].z() << "," << endl; */
         foutC.close();
         Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
         printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),

@@ -53,7 +53,7 @@ save_image: 1                   # save image in pose graph for visualization pru
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
-
+                        # 2  have no prior about extrinsic param, calibrate extrinsic param
 use_mynteye_adapter: 0
 # mynteye_imu_srv: "s2"
 
